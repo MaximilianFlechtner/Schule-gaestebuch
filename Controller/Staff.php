@@ -1,0 +1,47 @@
+<?php
+
+class Staff extends Controller
+{
+
+    public static function start($file)
+    {
+        $staffList = StaffModel::getAll();
+        require_once($file);
+    }
+
+    public static function create($file, array $post)
+    {
+        if (isset($post) && !empty($post)) {
+            $staff = new StaffModel(
+                '',
+                $post['tech-personalnummer'],
+                $post['tech-name'],
+                $post['tech-vorname'],
+                $post['tech-geburtsdatum'],
+                $post['tech-telefon'],
+                $post['tech-mobile'],
+                $post['tech-email'],
+                $post['tech-raum'],
+                $post['tech-abteilung'],
+                $post['tech-ist-leiter']
+            );
+            $staff->create();
+        }
+
+        require_once($file);
+    }
+
+    public static function delete($file, array $post)
+    {
+
+        if (!empty($post) && $post['tech-staff-id']) {
+            StaffModel::delete($post['tech-staff-id']);
+        }
+
+        $staffList = StaffModel::getAll();
+        require_once($file);
+    }
+
+}
+
+?>
