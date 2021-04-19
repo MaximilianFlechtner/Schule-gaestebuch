@@ -23,9 +23,11 @@ class Index extends Controller
     public static function create($file, array $post)
     {
         $val = new Validator($post);
-        $val->required('Pleas supply email')->email('Supply valid email')->validate('tech-mail', 'E-Mail');
+        $val->required('Pleas supply email')->email('Supply valid email')->validate('tech-mail', 'E-Mail', '', false);
         $val->required('Name')->validate('tech-name', 'Name');
         $val->required('Gender')->validate('tech-gender', 'Gender');
+        $val->url('Die Eingegebene Url ist nicht richtig')->validate('tech-web', 'Webseite');
+        $val->required('Bitte Gebe einen Text ein')->validate('tech-comment', 'Kommentar');
 
         if ($val->hasErrors()) {
             ob_start(); ?>
@@ -39,7 +41,9 @@ class Index extends Controller
             $message = ob_get_clean();
 
         } else {
-            $guestbook = new Guestbook(strip_tags($post['tech-mail']), strip_tags($post['tech-name']), strip_tags($post['tech-web']), strip_tags($post['tech-comment']), strip_tags($post['tech-gender']));
+            $data = $val->getValidData();
+
+            $guestbook = new Guestbook($data['tech-mail'], $data['tech-name'], $data['tech-web'], $data['tech-comment'], $data['tech-gender']);
             $guestbook->create();
             $guests = Guestbook::getGuestbook();
 

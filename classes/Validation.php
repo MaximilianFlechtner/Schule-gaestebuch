@@ -1,14 +1,5 @@
 <?php
 
-/**
- * Form validation library.
- *
- * @author Tasos Bekos <tbekos@gmail.com>
- * @author Chris Gutierrez <cdotgutierrez@gmail.com>
- * @author Corey Ballou <ballouc@gmail.com>
- * @see https://github.com/blackbelt/php-validation
- * @see Based on idea: http://brettic.us/2010/06/18/form-validation-class-using-php-5-3/
- */
 class Validator {
 
     protected $messages = array();
@@ -43,7 +34,6 @@ class Validator {
         return $this;
     }
 
-    // ----------------- ADD NEW RULE FUNCTIONS BELOW THIS LINE ----------------
 
     /**
      * Field, if completed, has to be a valid email address.
@@ -113,266 +103,6 @@ class Validator {
         return $this;
     }
 
-    /**
-     * Field must contain a valid float value.
-     *
-     * @param string $message
-     * @return FormValidator
-     */
-    public function float($message = null) {
-        $this->setRule(__FUNCTION__, function($val) {
-            return !(filter_var($val, FILTER_VALIDATE_FLOAT) === FALSE);
-        }, $message);
-        return $this;
-    }
-
-    /**
-     * Field must contain a valid integer value.
-     *
-     * @param string $message
-     * @return FormValidator
-     */
-    public function integer($message = null) {
-        $this->setRule(__FUNCTION__, function($val) {
-            return !(filter_var($val, FILTER_VALIDATE_INT) === FALSE);
-        }, $message);
-        return $this;
-    }
-
-    /**
-     * Every character in field, if completed, must be a digit.
-     * This is just like integer(), except there is no upper limit.
-     *
-     * @param string $message
-     * @return FormValidator
-     */
-    public function digits($message = null) {
-        $this->setRule(__FUNCTION__, function($val) {
-            return (strlen($val) === 0 || ctype_digit((string) $val));
-        }, $message);
-        return $this;
-    }
-
-    /**
-     * Field must be a number greater than [or equal to] X.
-     *
-     * @param numeric $limit
-     * @param bool $include Whether to include limit value.
-     * @param string $message
-     * @return FormValidator
-     */
-    public function min($limit, $include = TRUE, $message = null) {
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            if (strlen($val) === 0) {
-                return TRUE;
-            }
-
-            $val = (float) $val;
-            $limit = (float) $args[0];
-            $inc = (bool) $args[1];
-
-            return ($val > $limit || ($inc === TRUE && $val === $limit));
-        }, $message, array($limit, $include));
-        return $this;
-    }
-
-    /**
-     * Field must be a number greater than [or equal to] X.
-     *
-     * @param numeric $limit
-     * @param bool $include Whether to include limit value.
-     * @param string $message
-     * @return FormValidator
-     */
-    public function max($limit, $include = TRUE, $message = null) {
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            if (strlen($val) === 0) {
-                return TRUE;
-            }
-
-            $val = (float) $val;
-            $limit = (float) $args[0];
-            $inc = (bool) $args[1];
-
-            return ($val < $limit || ($inc === TRUE && $val === $limit));
-        }, $message, array($limit, $include));
-        return $this;
-    }
-
-    /**
-     * Field must be a number between X and Y.
-     *
-     * @param numeric $min
-     * @param numeric $max
-     * @param bool $include Whether to include limit value.
-     * @param string $message
-     * @return FormValidator
-     */
-    public function between($min, $max, $include = TRUE, $message = null) {
-        $message = $this->_getDefaultMessage(__FUNCTION__, array($min, $max, $include));
-
-        $this->min($min, $include, $message)->max($max, $include, $message);
-        return $this;
-    }
-
-    /**
-     * Field has to be greater than or equal to X characters long.
-     *
-     * @param int $len
-     * @param string $message
-     * @return FormValidator
-     */
-    public function minlength($len, $message = null) {
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            return !(strlen(trim($val)) < $args[0]);
-        }, $message, array($len));
-        return $this;
-    }
-
-    /**
-     * Field has to be less than or equal to X characters long.
-     *
-     * @param int $len
-     * @param string $message
-     * @return FormValidator
-     */
-    public function maxlength($len, $message = null) {
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            return !(strlen(trim($val)) > $args[0]);
-        }, $message, array($len));
-        return $this;
-    }
-
-    /**
-     * Field has to be between minlength and maxlength characters long.
-     *
-     * @param   int $minlength
-     * @param   int $maxlength
-     * @
-     */
-    public function betweenlength($minlength, $maxlength, $message = null) {
-        $message = empty($message) ? self::getDefaultMessage(__FUNCTION__, array($minlength, $maxlength)) : NULL;
-
-        $this->minlength($minlength, $message)->max($maxlength, $message);
-        return $this;
-    }
-
-    /**
-     * Field has to be X characters long.
-     *
-     * @param int $len
-     * @param string $message
-     * @return FormValidator
-     */
-    public function length($len, $message = null) {
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            return (strlen(trim($val)) == $args[0]);
-        }, $message, array($len));
-        return $this;
-    }
-
-    /**
-     * Field is the same as another one (password comparison etc).
-     *
-     * @param string $field
-     * @param string $label
-     * @param string $message
-     * @return FormValidator
-     */
-    public function matches($field, $label, $message = null) {
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            return ((string) $args[0] == (string) $val);
-        }, $message, array($this->_getVal($field), $label));
-        return $this;
-    }
-
-    /**
-     * Field is different from another one.
-     *
-     * @param string $field
-     * @param string $label
-     * @param string $message
-     * @return FormValidator
-     */
-    public function notmatches($field, $label, $message = null) {
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            return ((string) $args[0] != (string) $val);
-        }, $message, array($this->_getVal($field), $label));
-        return $this;
-    }
-
-    /**
-     * Field must start with a specific substring.
-     *
-     * @param string $sub
-     * @param string $message
-     * @return FormValidator
-     */
-    public function startsWith($sub, $message = null) {
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            $sub = $args[0];
-            return (strlen($val) === 0 || substr($val, 0, strlen($sub)) === $sub);
-        }, $message, array($sub));
-        return $this;
-    }
-
-    /**
-     * Field must NOT start with a specific substring.
-     *
-     * @param string $sub
-     * @param string $message
-     * @return FormValidator
-     */
-    public function notstartsWith($sub, $message = null) {
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            $sub = $args[0];
-            return (strlen($val) === 0 || substr($val, 0, strlen($sub)) !== $sub);
-        }, $message, array($sub));
-        return $this;
-    }
-
-    /**
-     * Field must end with a specific substring.
-     *
-     * @param string $sub
-     * @param string $message
-     * @return FormValidator
-     */
-    public function endsWith($sub, $message = null) {
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            $sub = $args[0];
-            return (strlen($val) === 0 || substr($val, -strlen($sub)) === $sub);
-        }, $message, array($sub));
-        return $this;
-    }
-
-    /**
-     * Field must not end with a specific substring.
-     *
-     * @param string $sub
-     * @param string $message
-     * @return FormValidator
-     */
-    public function notendsWith($sub, $message = null) {
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            $sub = $args[0];
-            return (strlen($val) === 0 || substr($val, -strlen($sub)) !== $sub);
-        }, $message, array($sub));
-        return $this;
-    }
-
-    /**
-     * Field has to be valid IP address.
-     *
-     * @param string $message
-     * @return FormValidator
-     */
-    public function ip($message = null) {
-        $this->setRule(__FUNCTION__, function($val) {
-            return (strlen(trim($val)) === 0 || filter_var($val, FILTER_VALIDATE_IP) !== FALSE);
-        }, $message);
-        return $this;
-    }
 
     /**
      * Field has to be valid internet address.
@@ -395,142 +125,6 @@ class Validator {
     protected function _getDefaultDateFormat() {
         return 'd/m/Y';
     }
-
-    /**
-     * Field has to be a valid date.
-     *
-     * @param string $message
-     * @return FormValidator
-     */
-    public function date($message = null) {
-        $this->setRule(__FUNCTION__, function($val, $args) {
-
-            if (strlen(trim($val)) === 0) {
-                return TRUE;
-            }
-
-            try {
-                $dt = new DateTime($val, new DateTimeZone("UTC"));
-                return true;
-            } catch(Exception $e) {
-                return false;
-            }
-
-        }, $message, array($format, $separator));
-        return $this;
-    }
-
-    /**
-     * Field has to be a date later than or equal to X.
-     *
-     * @param   string|int  $date       Limit date
-     * @param   string      $format     Date format
-     * @param   string      $message
-     * @return FormValidator
-     */
-    public function minDate($date = 0, $format = null, $message = null) {
-        if (empty($format)) {
-            $format = $this->_getDefaultDateFormat();
-        }
-        if (is_numeric($date)) {
-            $date = new DateTime($date . ' days'); // Days difference from today
-        } else {
-            $fieldValue = $this->_getVal($date);
-            $date = ($fieldValue == FALSE) ? $date : $fieldValue;
-
-            $date = DateTime::createFromFormat($format, $date);
-        }
-
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            $format = $args[1];
-            $limitDate = $args[0];
-
-            return ($limitDate > DateTime::createFromFormat($format, $val)) ? FALSE : TRUE;
-        }, $message, array($date, $format));
-        return $this;
-    }
-
-    /**
-     * Field has to be a date later than or equal to X.
-     *
-     * @param string|integer $date Limit date.
-     * @param string $format Date format.
-     * @param string $message
-     * @return FormValidator
-     */
-    public function maxDate($date = 0, $format = null, $message = null) {
-        if (empty($format)) {
-            $format = $this->_getDefaultDateFormat();
-        }
-        if (is_numeric($date)) {
-            $date = new DateTime($date . ' days'); // Days difference from today
-        } else {
-            $fieldValue = $this->_getVal($date);
-            $date = ($fieldValue == FALSE) ? $date : $fieldValue;
-
-            $date = DateTime::createFromFormat($format, $date);
-        }
-
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            $format = $args[1];
-            $limitDate = $args[0];
-
-            return !($limitDate < DateTime::createFromFormat($format, $val));
-        }, $message, array($date, $format));
-        return $this;
-    }
-
-    /**
-     * Field has to be a valid credit card number format.
-     *
-     * @see https://github.com/funkatron/inspekt/blob/master/Inspekt.php
-     * @param string $message
-     * @return FormValidator
-     */
-    public function ccnum($message = null) {
-        $this->setRule(__FUNCTION__, function($value) {
-            $value = str_replace(' ', '', $value);
-            $length = strlen($value);
-
-            if ($length < 13 || $length > 19) {
-                return FALSE;
-            }
-
-            $sum = 0;
-            $weight = 2;
-
-            for ($i = $length - 2; $i >= 0; $i--) {
-                $digit = $weight * $value[$i];
-                $sum += floor($digit / 10) + $digit % 10;
-                $weight = $weight % 2 + 1;
-            }
-
-            $mod = (10 - $sum % 10) % 10;
-
-            return ($mod == $value[$length - 1]);
-        }, $message);
-        return $this;
-    }
-
-    /**
-     * Field has to be one of the allowed ones.
-     *
-     * @param string|array $allowed Allowed values.
-     * @param string $message
-     * @return FormValidator
-     */
-    public function oneOf($allowed, $message = null) {
-        if (is_string($allowed)) {
-            $allowed = explode(',', $allowed);
-        }
-
-        $this->setRule(__FUNCTION__, function($val, $args) {
-            return in_array($val, $args[0]);
-        }, $message, array($allowed));
-        return $this;
-    }
-
-    // --------------- END [ADD NEW RULE FUNCTIONS ABOVE THIS LINE] ------------
 
     /**
      * callback
@@ -623,7 +217,7 @@ class Validator {
      * @param string $label
      * @return bool
      */
-    public function validate($key, $recursive = false, $label = '') {
+    public function validate($key, $recursive = false, $label = '', $htmlSpecial = true) {
         // set up field name for error message
         $this->fields[$key] = (empty($label)) ? 'Field with the name of "' . $key . '"' : $label;
 
@@ -633,7 +227,7 @@ class Validator {
         $val = $this->_getVal($key);
 
         // validate the piece of data
-        $this->_validate($key, $val, $recursive);
+        $this->_validate($key, $val, $recursive, $htmlSpecial);
 
         // reset rules
         $this->rules = array();
@@ -649,7 +243,7 @@ class Validator {
      * @param mixed $val
      * @return bool
      */
-    protected function _validate($key, $val, $recursive = false)
+    protected function _validate($key, $val, $recursive = false, $htmlSpecial = true)
     {
         if ($recursive && is_array($val)) {
             // run validations on each element of the array
@@ -679,6 +273,11 @@ class Validator {
                         return FALSE;
                     }
                 }
+            }
+
+            $val = strip_tags($val);
+            if ($htmlSpecial) {
+                $val = htmlspecialchars($val);
             }
 
             $this->validData[$key] = $val;
@@ -781,6 +380,7 @@ class Validator {
         $this->errors[$key] = sprintf($message, $this->fields[$key]);
     }
 
+
     /**
      * Set rule.
      *
@@ -800,133 +400,8 @@ class Validator {
             }
             $this->arguments[$rule] = $args; // Specific arguments for rule
 
-            $this->messages[$rule] = (empty($message)) ? $this->_getDefaultMessage($rule, $args) : $message;
+            $this->messages[$rule] = (empty($message)) ? '' : $message;
         }
-    }
-
-    /**
-     * Get default error message.
-     *
-     * @param string $key
-     * @param array $args
-     * @return string
-     */
-    protected function _getDefaultMessage($rule, $args = null) {
-
-        switch ($rule) {
-            case 'email':
-                $message = '%s is an invalid email address.';
-                break;
-
-            case 'ip':
-                $message = '%s is an invalid IP address.';
-                break;
-
-            case 'url':
-                $message = '%s is an invalid url.';
-                break;
-
-            case 'required':
-                $message = '%s is required.';
-                break;
-
-            case 'float':
-                $message = '%s must consist of numbers only.';
-                break;
-
-            case 'integer':
-                $message = '%s must consist of integer value.';
-                break;
-
-            case 'digits':
-                $message = '%s must consist only of digits.';
-                break;
-
-            case 'min':
-                $message = '%s must be greater than ';
-                if ($args[1] == TRUE) {
-                    $message .= 'or equal to ';
-                }
-                $message .= $args[0] . '.';
-                break;
-
-            case 'max':
-                $message = '%s must be less than ';
-                if ($args[1] == TRUE) {
-                    $message .= 'or equal to ';
-                }
-                $message .= $args[0] . '.';
-                break;
-
-            case 'between':
-                $message = '%s must be between ' . $args[0] . ' and ' . $args[1] . '.';
-                if ($args[2] == FALSE) {
-                    $message .= '(Without limits)';
-                }
-                break;
-
-            case 'minlength':
-                $message = '%s must be at least ' . $args[0] . ' characters or longer.';
-                break;
-
-            case 'maxlength':
-                $message = '%s must be no longer than ' . $args[0] . ' characters.';
-                break;
-
-            case 'length':
-                $message = '%s must be exactly ' . $args[0] . ' characters in length.';
-                break;
-
-            case 'matches':
-                $message = '%s must match ' . $args[1] . '.';
-                break;
-
-            case 'notmatches':
-                $message = '%s must not match ' . $args[1] . '.';
-                break;
-
-            case 'startsWith':
-                $message = '%s must start with "' . $args[0] . '".';
-                break;
-
-            case 'notstartsWith':
-                $message = '%s must not start with "' . $args[0] . '".';
-                break;
-
-            case 'endsWith':
-                $message = '%s must end with "' . $args[0] . '".';
-                break;
-
-            case 'notendsWith':
-                $message = '%s must not end with "' . $args[0] . '".';
-                break;
-
-            case 'date':
-                $message = '%s is not valid date.';
-                break;
-
-            case 'mindate':
-                $message = '%s must be later than ' . $args[0]->format($args[1]) . '.';
-                break;
-
-            case 'maxdate':
-                $message = '%s must be before ' . $args[0]->format($args[1]) . '.';
-                break;
-
-            case 'oneof':
-                $message = '%s must be one of ' . implode(', ', $args[0]) . '.';
-                break;
-
-            case 'ccnum':
-                $message = '%s must be a valid credit card number.';
-                break;
-
-            default:
-                $message = '%s has an error.';
-                break;
-        }
-
-        return $message;
     }
 
 }

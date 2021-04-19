@@ -7,8 +7,8 @@ class Db
 {
     protected static $host = "localhost";
     protected static $dbname = "schule";
-    protected static $user = "root";
-    protected static $pass = "toor";
+    protected static $user = "schule";
+    protected static $pass = "schule";
 
 
 

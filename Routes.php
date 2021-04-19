@@ -9,6 +9,10 @@ Route::set('indexCreate', function () {
     Index::createModel("Index");
 });
 
+//Captcha
+Route::set('captcha', function() {
+    include_once('includes/phpcaptcha/index.php');
+});
 
 
 
