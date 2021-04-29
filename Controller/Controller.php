@@ -40,6 +40,10 @@ class Controller extends Db
         include_once('templates/footer.php');
     }
 
+    public static function start($file) {
+        require_once($file);
+    }
+
 }
 
 ?>

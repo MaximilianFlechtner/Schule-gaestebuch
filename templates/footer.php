@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-12 p-2">
                 <div class="text-center text-light">
-                    © Maximilian Flechtner (Technology)
+                    © Maximilian Flechtner (Techno1ogy)
                 </div>
             </div>
         </div>

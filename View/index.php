@@ -19,31 +19,31 @@
             </div>
             <div class="form-group">
                 <label for="tech-web">Webseite</label>
-                <input name="tech-web" type="text" class="form-control" id="tech-web">
+                <input name="tech-web" type="url" class="form-control" id="tech-web">
             </div>
             <div class="form-group">
-                <label for="tech-comment">Example textarea</label>
+                <label for="tech-comment">Kommentar</label>
                 <textarea class="form-control" id="tech-comment" name="tech-comment" rows="3"></textarea>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="tech-gender" id="tech-male" value="male">
                 <label class="form-check-label" for="tech-male">
-                    Female
+                    Weiblich
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="tech-gender" id="tech-female" value="female">
                 <label class="form-check-label" for="tech-female">
-                    Male
+                    Mänlich
                 </label>
             </div>
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="tech-gender" id="tech-other" value="other">
                 <label class="form-check-label" for="tech-other">
-                    Other
+                    Anderes
                 </label>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Speichern</button>
         </form>
 
     </div>

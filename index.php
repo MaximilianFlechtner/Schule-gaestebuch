@@ -1,4 +1,7 @@
 <?php
+require_once('db_config.php');
+require_once('config.php');
+
 error_reporting(E_ALL);
 spl_autoload_register(function ($class_name) {
     if (file_exists('classes/' . $class_name . '.php')) {

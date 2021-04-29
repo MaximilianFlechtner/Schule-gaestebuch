@@ -22,6 +22,12 @@ class Route
             $function->__invoke();
         }
     }
+
+    public static function def() {
+        if (!in_array($_GET['url'], self::$validRoutes)) {
+            Controller::CreateView('404');
+        }
+    }
 }
 
 ?>

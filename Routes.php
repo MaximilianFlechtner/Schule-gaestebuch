@@ -1,5 +1,26 @@
 <?php
 
+//Installer
+if (!defined('INSTALL')) {
+    Route::set('installer', function() {
+        Installer::CreateView("Installer");
+    });
+
+    Route::set('installerCheck', function() {
+        Installer::createModel('Installer');
+    });
+
+    Route::set('installerData', function() {
+        Installer::createTables('Installer');
+    });
+    Route::set('installerDataTest', function() {
+        Installer::createTables('Installer', true);
+    });
+    Route::set('installerDone', function() {
+        Installer::done();
+    });
+}
+
 //Gästebuch
 Route::set('index.php', function () {
     Index::CreateView("Index");
@@ -34,5 +55,8 @@ Route::set('staffCreate', function () {
 Route::set('staffDelete', function () {
     Staff::deleteModel("Staff");
 });
+
+Route::def();
+
 
 ?>

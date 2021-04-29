@@ -5,11 +5,6 @@
  */
 class Db
 {
-    protected static $host = "localhost";
-    protected static $dbname = "schule";
-    protected static $user = "schule";
-    protected static $pass = "schule";
-
 
 
     /**
@@ -17,10 +12,18 @@ class Db
      */
     private static function con()
     {
-        $pdo = new PDO("mysql:host=" . self::$host . ";dbname=" . self::$dbname . ";charset=utf8", self::$user, self::$pass);
-        $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        return $pdo;
+        if (!defined('DBHOST') || !defined('DBNAME') || !defined('DBUSER') && !defined('DBPASS')) {
+            header("Location: /installer");
+        }else {
+            try {
+                $pdo = new PDO("mysql:host=" . DBHOST . ";dbname=" . DBNAME . ";charset=utf8", DBUSER, DBPASS);
+            }catch(Exception $e){
+                die('<div class="alert alert-danger" role="alert">Bitte geben Sie die richtigen Daten zur Datenbank an (<a href="/installer">Instalieren</a>)</div>');
+            }
+            $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+            $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return $pdo;
+        }
     }
 
 
@@ -32,7 +35,11 @@ class Db
      */
     public static function query($query, $params = array())
     {
-        $stmt = self::con()->prepare($query);
+        try {
+            $stmt = self::con()->prepare($query);
+        }catch(Exception $e){
+            die('<div class="alert alert-danger">Die Tabelle existiert nicht, bitte überprüfen Sie ihre Datenbank(<a href="/installer">Installiren</a>)</div>');
+        }
         $stmt->execute($params);
         $data = $stmt->fetchAll();
         return $data;
