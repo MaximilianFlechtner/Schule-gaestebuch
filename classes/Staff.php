@@ -1,7 +1,7 @@
 <?php
 
 
-class StaffModel extends Db
+class StaffModel extends Db implements Model
 {
     public $id;
     public $staffNumber;
@@ -44,7 +44,7 @@ class StaffModel extends Db
         $this->mail = $mail;
         $this->room = $room;
         $this->departmentID = $departmentID;
-        $this->isManager = $isManager == 'true' ? 'J' : 'N';
+        $this->isManager = ($isManager == 'true' ? 'J' : 'N');
     }
 
     /**
@@ -74,7 +74,7 @@ class StaffModel extends Db
     {
         $staffList = [];
 
-        foreach (self::query("SELECT * FROM Mitarbeiter") as $staff) {
+        foreach (self::getAllFromDB('Mitarbeiter') as $staff) {
             $staffList[] = new StaffModel(
                 $staff[0],
                 $staff[1],
@@ -98,7 +98,7 @@ class StaffModel extends Db
     /**
      *
      */
-    public function update()
+    public static function update($id)
     {
 
     }

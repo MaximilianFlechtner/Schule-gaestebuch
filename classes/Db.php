@@ -45,6 +45,10 @@ class Db
         return $data;
     }
 
+    public static function getAllFromDB($db) {
+        return self::query("SELECT * FROM ". $db);
+    }
+
 
 
     /**

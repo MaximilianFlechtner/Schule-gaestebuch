@@ -1,7 +1,7 @@
 <?php
 
 
-class InsuranceModel extends Db
+class InsuranceModel extends Db implements Model
 {
     public $id;
     public $name;
@@ -56,7 +56,7 @@ class InsuranceModel extends Db
     {
         $insuranceList = [];
 
-        foreach (self::query("SELECT * FROM Versicherungsnehmer") as $raw) {
+        foreach (self::getAllFromDB('Versicherungsnehmer') as $raw) {
             $insuranceList[] = new InsuranceModel(
                 $raw[0],
                 $raw[1],
@@ -79,7 +79,7 @@ class InsuranceModel extends Db
     /**
      *
      */
-    public function update()
+    public static function update($id)
     {
 
     }
@@ -87,7 +87,7 @@ class InsuranceModel extends Db
     /**
      *
      */
-    public function delete()
+    public static function delete($id)
     {
 
     }

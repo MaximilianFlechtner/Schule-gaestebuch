@@ -52,14 +52,19 @@
             Aktuell wird nur die Datenbank für das gästebuch erstellt!!
         </div>
     </div>
-    <div class="col-6 text-center">
+    <div class="col-4 text-center">
         <a href="/installerDataTest" class="btn btn-primary">
             Mit Test Daten
         </a>
     </div>
-    <div class="col-6 text-center">
+    <div class="col-4 text-center">
         <a href="/installerData" class="btn btn-primary">
             Nur Tabellen
+        </a>
+    </div>
+    <div class="col-4 text-center">
+        <a href="/installerDataVersicherung" class="btn btn-primary">
+            Versicherung
         </a>
     </div>
     <div class="col-12 mt-5 text-center">

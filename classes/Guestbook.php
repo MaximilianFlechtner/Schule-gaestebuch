@@ -1,7 +1,7 @@
 <?php
 
 
-class Guestbook extends Db
+class Guestbook extends Db implements Model
 {
     public $email;
     public $name;
@@ -30,9 +30,9 @@ class Guestbook extends Db
     /**
      * @return array
      */
-    static function getGuestbook() {
+    static function getAll() {
         $guestbook = [];
-        foreach (self::query("SELECT * FROM Guestbook") as $raw) {
+        foreach (self::getAllFromDB('Guestbook') as $raw) {
             $guestbook[] = new Guestbook($raw[1],$raw[2],$raw[3],$raw[4],$raw[5]);
         }
 
@@ -46,12 +46,12 @@ class Guestbook extends Db
     }
 
 
-    public function update() {
+    public static function update($id) {
 
     }
 
 
-    public function delete() {
+    public static function delete($id) {
 
     }
 

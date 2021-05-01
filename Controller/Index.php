@@ -3,7 +3,7 @@
 /**
  * Class Index
  */
-class Index extends Controller
+class Index extends Controller implements ControllerModel
 {
 
     /**
@@ -11,7 +11,7 @@ class Index extends Controller
      */
     public static function start($file)
     {
-        $guests = Guestbook::getGuestbook();
+        $guests = Guestbook::getAll();
         require_once($file);
     }
 
@@ -45,7 +45,7 @@ class Index extends Controller
 
             $guestbook = new Guestbook($data['tech-mail'], $data['tech-name'], $data['tech-web'], $data['tech-comment'], $data['tech-gender']);
             $guestbook->create();
-            $guests = Guestbook::getGuestbook();
+            $guests = Guestbook::getAll();
 
             ob_start(); ?>
             <div class="alert alert-success">

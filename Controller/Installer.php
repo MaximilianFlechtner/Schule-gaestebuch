@@ -127,14 +127,20 @@ class Installer extends Controller
      * @param $view_name
      * @param false $test
      */
-    public static function createTables($view_name, $test = false)
+    public static function createTables($view_name, $database = 0)
     {
         $pdo = new PDO("mysql:host=" . DBHOST . ";dbname=" . DBNAME . ";charset=utf8", DBUSER, DBPASS);
 
-        if ($test) {
-            $query = file_get_contents(__DIR__ . '/../sql/installer_test.sql');
-        } else {
-            $query = file_get_contents(__DIR__ . '/../sql/installer_default.sql');
+        switch ($database){
+            case 1:
+                $query = file_get_contents(__DIR__ . '/../sql/installer_test.sql');
+                break;
+            case 2:
+                $query = file_get_contents(__DIR__ . '/../sql/installer_versicherung.sql');
+                break;
+            default:
+                $query = file_get_contents(__DIR__ . '/../sql/installer_default.sql');
+                break;
         }
 
         $smt = $pdo->prepare($query);

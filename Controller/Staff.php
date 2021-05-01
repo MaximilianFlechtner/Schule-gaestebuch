@@ -1,6 +1,6 @@
 <?php
 
-class Staff extends Controller
+class Staff extends Controller implements ControllerModel
 {
 
     public static function start($file)
@@ -23,7 +23,7 @@ class Staff extends Controller
                 $post['tech-email'],
                 $post['tech-raum'],
                 $post['tech-abteilung'],
-                $post['tech-ist-leiter']
+                isset($post['tech-ist-leiter']) ? $post['tech-ist-leiter'] : false
             );
             $staff->create();
         }

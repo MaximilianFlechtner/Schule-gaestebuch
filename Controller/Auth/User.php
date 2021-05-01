@@ -1,23 +1,20 @@
 <?php
 
-class Insurance extends Controller implements ControllerModel
-{
 
+class User extends Controller implements ControllerModel
+{
     public static function start($file)
     {
-        $insurances = InsuranceModel::getAll();
-        require_once($file);
+        // TODO: Implement start() method.
     }
 
     public static function create($file, array $post)
     {
-        require_once($file);
+        // TODO: Implement create() method.
     }
 
     public static function delete($file, array $post)
     {
+        // TODO: Implement delete() method.
     }
-
 }
-
-?>

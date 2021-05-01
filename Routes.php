@@ -14,7 +14,10 @@ if (!defined('INSTALL')) {
         Installer::createTables('Installer');
     });
     Route::set('installerDataTest', function() {
-        Installer::createTables('Installer', true);
+        Installer::createTables('Installer', 1);
+    });
+    Route::set('installerDataVersicherung', function() {
+        Installer::createTables('Installer', 2);
     });
     Route::set('installerDone', function() {
         Installer::done();
