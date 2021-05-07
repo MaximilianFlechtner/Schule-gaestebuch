@@ -46,7 +46,7 @@ class Guestbook extends Db implements Model
     }
 
 
-    public static function update($id) {
+    public static function update($model) {
 
     }
 

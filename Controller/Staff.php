@@ -42,6 +42,29 @@ class Staff extends Controller implements ControllerModel
         require_once($file);
     }
 
+    public static function update($file, array $post)
+    {
+          if (isset($post) && !empty($post)) {
+              $staff = new StaffModel(
+                  $post['tech-staff-id'],
+                  $post['tech-personalnummer'],
+                  $post['tech-name'],
+                  $post['tech-vorname'],
+                  $post['tech-geburtsdatum'],
+                  $post['tech-telefon'],
+                  $post['tech-mobile'],
+                  $post['tech-email'],
+                  $post['tech-raum'],
+                  $post['tech-abteilung'],
+                  isset($post['tech-ist-leiter']) ? $post['tech-ist-leiter'] : false
+              );
+
+              StaffModel::update($staff);
+          }
+        $staffList = StaffModel::getAll();
+
+        require_once($file);
+    }
 }
 
 ?>

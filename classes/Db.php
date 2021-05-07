@@ -67,6 +67,11 @@ class Db
         self::query($sql, $params);
     }
 
+    public static function updateDb($table, $id,$fields, $params = array()) {
+        $sql = 'UPDATE ' . $table . ' SET ' . chop(implode('=?, ', $fields), ','). '=? WHERE id = ' . $id;
+        return self::query($sql, $params);
+    }
+
 
 
     /**

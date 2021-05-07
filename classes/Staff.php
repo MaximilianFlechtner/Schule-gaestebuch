@@ -32,7 +32,7 @@ class StaffModel extends Db implements Model
      * @param $departmentID
      * @param $isManager
      */
-    public function __construct($id, $staffNumber, $name, $firstName, $birth,$phone ,$mobile, $mail, $room, $departmentID, $isManager)
+    public function __construct($id, $staffNumber, $name, $firstName, $birth,$phone ,$mobile, $mail, $room, $isManager, $departmentID)
     {
         $this->id = $id;
         $this->staffNumber = $staffNumber;
@@ -44,7 +44,7 @@ class StaffModel extends Db implements Model
         $this->mail = $mail;
         $this->room = $room;
         $this->departmentID = $departmentID;
-        $this->isManager = ($isManager == 'true' ? 'J' : 'N');
+        $this->isManager = ($isManager == 'J' ? true : false);
     }
 
     /**
@@ -97,10 +97,11 @@ class StaffModel extends Db implements Model
 
     /**
      *
+     * @param StaffModel $model
      */
-    public static function update($id)
+    public static function update($model)
     {
-
+        return self::updateDb('Mitarbeiter', $model->id, ['Personalnummer', 'NAME', 'Vorname', 'Geburtsdatum', 'Telefon', 'Mobil', 'Email', 'Raum', 'Ist_Leiter', 'Abteilung_ID'], array_values(get_object_vars($model)));
     }
 
     /**

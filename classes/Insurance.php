@@ -79,7 +79,7 @@ class InsuranceModel extends Db implements Model
     /**
      *
      */
-    public static function update($id)
+    public static function update($post)
     {
 
     }

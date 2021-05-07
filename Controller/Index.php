@@ -67,6 +67,10 @@ class Index extends Controller implements ControllerModel
     {
     }
 
+    public static function update($file ,array $post)
+    {
+        // TODO: Implement update() method.
+    }
 }
 
 ?>

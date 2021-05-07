@@ -40,6 +40,14 @@ class Controller extends Db
         include_once('templates/footer.php');
     }
 
+    public static function updateModel($view_name) {
+        include_once('templates/nav.php');
+        if (file_exists("./View/$view_name.php")) {
+            static::update("./View/$view_name.php", $_POST);
+        }
+        include_once('templates/footer.php');
+    }
+
     public static function start($file) {
         require_once($file);
     }

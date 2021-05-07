@@ -59,6 +59,10 @@ Route::set('staffDelete', function () {
     Staff::deleteModel("Staff");
 });
 
+Route::set('staffUpdate', function () {
+    Staff::updateModel("Staff");
+});
+
 Route::def();
 
 
