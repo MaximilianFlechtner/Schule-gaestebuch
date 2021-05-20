@@ -40,6 +40,7 @@ class Db
         }catch(Exception $e){
             die('<div class="alert alert-danger">Die Tabelle existiert nicht, bitte überprüfen Sie ihre Datenbank(<a href="/installer">Installiren</a>)</div>');
         }
+
         $stmt->execute($params);
         $data = $stmt->fetchAll();
         return $data;
@@ -69,6 +70,9 @@ class Db
 
     public static function updateDb($table, $id,$fields, $params = array()) {
         $sql = 'UPDATE ' . $table . ' SET ' . chop(implode('=?, ', $fields), ','). '=? WHERE id = ' . $id;
+
+        array_shift($params);
+
         return self::query($sql, $params);
     }
 

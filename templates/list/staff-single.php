@@ -23,6 +23,9 @@
                 <p>Raum: <?= $staff->room ?></p>
                 <p>Leiter: <?= $staff->getIsManager() ? 'Ja' : 'Nein' ?></p>
                 <p>Abteilung: <?= Department::getById($staff->departmentID)->name ?></p>
+                <?php if (CompanyCar::getByStaff($staff->id)): ?>
+                    <p>Dienstwagen: <?= CompanyCar::getByStaff($staff->id)->indicator ?></p>
+                <?php endif; ?>
             </div>
         </div>
     </div>

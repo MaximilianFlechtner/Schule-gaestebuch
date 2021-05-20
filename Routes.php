@@ -63,6 +63,12 @@ Route::set('staffUpdate', function () {
     Staff::updateModel("Staff");
 });
 
+
+//Dienstwagen
+Route::set('companycar', function() {
+   CompanyCar::CreateView("companyCar");
+});
+
 Route::def();
 
 

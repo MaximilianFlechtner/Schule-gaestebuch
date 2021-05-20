@@ -63,7 +63,7 @@ class StaffModel extends Db implements Model
         self::insert(
             'Mitarbeiter',
             ['Personalnummer', 'NAME', 'Vorname', 'Geburtsdatum', 'Telefon', 'Mobil', 'Email', 'Raum', 'Ist_Leiter', 'Abteilung_ID'],
-            [$this->staffNumber, $this->name, $this->firstName, $this->birth, $this->phone ,$this->mobile, $this->mail, $this->room, $this->isManager, $this->departmentID]
+            [$this->staffNumber, $this->name, $this->firstName, $this->birth, $this->phone ,$this->mobile, $this->mail, $this->room, $this->isManager ? 'J' : 'N', $this->departmentID]
         );
     }
 
@@ -101,7 +101,12 @@ class StaffModel extends Db implements Model
      */
     public static function update($model)
     {
-        return self::updateDb('Mitarbeiter', $model->id, ['Personalnummer', 'NAME', 'Vorname', 'Geburtsdatum', 'Telefon', 'Mobil', 'Email', 'Raum', 'Ist_Leiter', 'Abteilung_ID'], array_values(get_object_vars($model)));
+        $values = array_values(get_object_vars($model));
+        if (!empty($values)) {
+            $values[10] = $values[10] ? 'J' : 'N';
+        }
+
+        return self::updateDb('Mitarbeiter', $model->id, ['Personalnummer', 'NAME', 'Vorname', 'Geburtsdatum', 'Telefon', 'Email' ,'Mobil', 'Raum', 'Abteilung_ID', 'Ist_Leiter'], $values);
     }
 
     /**
