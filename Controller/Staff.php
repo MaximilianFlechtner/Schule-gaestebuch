@@ -22,8 +22,8 @@ class Staff extends Controller implements ControllerModel
                 $post['tech-mobile'],
                 $post['tech-email'],
                 $post['tech-raum'],
-                $post['tech-abteilung'],
-                isset($post['tech-ist-leiter']) ? $post['tech-ist-leiter'] : false
+                isset($post['tech-ist-leiter']) ? $post['tech-ist-leiter'] : false,
+                $post['tech-abteilung']
             );
             $staff->create();
         }
