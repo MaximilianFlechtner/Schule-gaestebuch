@@ -31,7 +31,7 @@ class CompanyCarModel extends Db implements Model
     {
         $cars = [];
 
-        foreach(self::getAllFromDB('Dienstwagen') as $car) {
+        foreach (self::getAllFromDB('Dienstwagen') as $car) {
             $cars[] = new CompanyCarModel(
                 $car[0],
                 $car[1],
@@ -46,12 +46,13 @@ class CompanyCarModel extends Db implements Model
         return $cars;
     }
 
-    public static function getByField($id, $field) {
+    public static function getByField($id, $field)
+    {
         $cars = [];
 
-        $result = self::query("SELECT * FROM Dienstwagen WHERE ". $field ." = ". $id);
+        $result = self::query("SELECT * FROM Dienstwagen WHERE " . $field . " = " . $id);
         if (!empty($result)) {
-            foreach($result as $car) {
+            foreach ($result as $car) {
                 $cars[] = new CompanyCarModel(
                     $car[0],
                     $car[1],

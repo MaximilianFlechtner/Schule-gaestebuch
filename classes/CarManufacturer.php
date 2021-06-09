@@ -21,12 +21,13 @@ class CarManufacturerModel extends Db implements Model
         $this->country = $country;
     }
 
-    public static function getById($id){
+    public static function getById($id)
+    {
         $carManufacturer = [];
 
-        $result = self::query("SELECT * FROM Fahrzeughersteller WHERE id = ". $id);
+        $result = self::query("SELECT * FROM Fahrzeughersteller WHERE id = " . $id);
         if (!empty($result)) {
-            foreach($result as $carManufacture) {
+            foreach ($result as $carManufacture) {
                 $carManufacturer[] = new CarManufacturerModel(
                     $carManufacture[0],
                     $carManufacture[1],

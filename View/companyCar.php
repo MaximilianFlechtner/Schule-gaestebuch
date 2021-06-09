@@ -5,11 +5,11 @@
 </div>
 <div class="row mt-2">
     <?php
-        if (isset($carList)) {
-            foreach($carList as $car) {
-                include('templates/list/car-single.php');
-            }
+    if (isset($carList)) {
+        foreach ($carList as $car) {
+            include('templates/list/car-single.php');
         }
+    }
     ?>
 </div>
 

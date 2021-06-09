@@ -57,11 +57,14 @@
     </div>
 
     <!-- Modal Edit -->
-    <div class="modal fade" id="editModal<?= $staff->id ?>" tabindex="-1" aria-labelledby="editModalLabel-<?= $staff->id ?>" aria-hidden="true">
+    <div class="modal fade" id="editModal<?= $staff->id ?>" tabindex="-1"
+         aria-labelledby="editModalLabel-<?= $staff->id ?>" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editModalLabel-<?= $staff->id ?>">  <?= $staff->name ?> <?= $staff->firstName ?> Ändern ?</h5>
+                    <h5 class="modal-title"
+                        id="editModalLabel-<?= $staff->id ?>">  <?= $staff->name ?> <?= $staff->firstName ?> Ändern
+                        ?</h5>
                     <button type="button" class="btn-close btn" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form method="post" action="/staffUpdate">
@@ -110,7 +113,11 @@
                             <label>Ist Leiter</label>
                             <div>
                                 <div class="custom-control custom-checkbox custom-control-inline">
-                                    <input <?= $staff->getIsManager() ? 'checked' : '' ?> name="tech-ist-leiter" id="tech-ist-leiter_0" type="checkbox" class="custom-control-input" value="true">
+                                    <input <?= $staff->getIsManager() ? 'checked' : '' ?> name="tech-ist-leiter"
+                                                                                          id="tech-ist-leiter_0"
+                                                                                          type="checkbox"
+                                                                                          class="custom-control-input"
+                                                                                          value="true">
                                     <label for="tech-ist-leiter_0" class="custom-control-label">Ja</label>
                                 </div>
                             </div>

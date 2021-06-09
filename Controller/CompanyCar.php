@@ -11,14 +11,15 @@ class CompanyCar extends Controller implements ControllerModel
 
     public static function getById($id)
     {
-        if($id) {
+        if ($id) {
             return CompanyCarModel::getByField($id, 'id');
         }
 
         return false;
     }
 
-    public static function getByStaff($id) {
+    public static function getByStaff($id)
+    {
         if ($id) {
             return CompanyCarModel::getByField($id, 'Mitarbeiter_ID');
         }

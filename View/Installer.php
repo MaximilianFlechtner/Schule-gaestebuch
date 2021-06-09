@@ -12,7 +12,8 @@
             <form action="installerCheck" method="post">
                 <div class="form-group">
                     <label for="tech-host">Host</label>
-                    <input placeholder="localhost" type="text" class="form-control" id="tech-host" name="tech-host" required>
+                    <input placeholder="localhost" type="text" class="form-control" id="tech-host" name="tech-host"
+                           required>
                 </div>
                 <div class="form-group">
                     <label for="tech-db">Database</label>
@@ -20,11 +21,13 @@
                 </div>
                 <div class="form-group">
                     <label for="tech-user">User</label>
-                    <input placeholder="schule" type="text" class="form-control" id="tech-user" name="tech-user" required>
+                    <input placeholder="schule" type="text" class="form-control" id="tech-user" name="tech-user"
+                           required>
                 </div>
                 <div class="form-group">
                     <label for="tech-password">Passwort</label>
-                    <input placeholder="schule" type="password" class="form-control" id="tech-password" name="tech-password" required>
+                    <input placeholder="schule" type="password" class="form-control" id="tech-password"
+                           name="tech-password" required>
                 </div>
                 <button type="submit" class="btn btn-primary mt-2">Submit</button>
             </form>
@@ -33,48 +36,47 @@
     </div>
 <?php else: ?>
 
-<div class="row">
-    <div class="col-12 text-center mb-2">
-        <h1>Datenbank Tabellen erstellen</h1>
-    </div>
-    <div class="col-12">
-        <div class="alert alert-warning text-center">
-            Achtung das Könnte alle Daten löschen, bitte ziehen sie sich ein Backup von der Datenbank "<?= DBNAME ?>"
+    <div class="row">
+        <div class="col-12 text-center mb-2">
+            <h1>Datenbank Tabellen erstellen</h1>
         </div>
-    </div>
-    <?php if (isset($message) && !empty($message)): ?>
         <div class="col-12">
-            <?= $message ?>
+            <div class="alert alert-warning text-center">
+                Achtung das Könnte alle Daten löschen, bitte ziehen sie sich ein Backup von der Datenbank "<?= DBNAME ?>
+                "
+            </div>
         </div>
-    <?php endif; ?>
-    <div class="col-12 text-center mb-2 mt-2">
-        <div class="alert alert-info">
-            Aktuell wird nur die Datenbank für das gästebuch erstellt!!
+        <?php if (isset($message) && !empty($message)): ?>
+            <div class="col-12">
+                <?= $message ?>
+            </div>
+        <?php endif; ?>
+        <div class="col-12 text-center mb-2 mt-2">
+            <div class="alert alert-info">
+                Aktuell wird nur die Datenbank für das gästebuch erstellt!!
+            </div>
+        </div>
+        <div class="col-4 text-center">
+            <a href="/installerDataTest" class="btn btn-primary">
+                Mit Test Daten
+            </a>
+        </div>
+        <div class="col-4 text-center">
+            <a href="/installerData" class="btn btn-primary">
+                Nur Tabellen
+            </a>
+        </div>
+        <div class="col-4 text-center">
+            <a href="/installerDataVersicherung" class="btn btn-primary">
+                Versicherung
+            </a>
+        </div>
+        <div class="col-12 mt-5 text-center">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#done">
+                Instalation abschließen
+            </button>
         </div>
     </div>
-    <div class="col-4 text-center">
-        <a href="/installerDataTest" class="btn btn-primary">
-            Mit Test Daten
-        </a>
-    </div>
-    <div class="col-4 text-center">
-        <a href="/installerData" class="btn btn-primary">
-            Nur Tabellen
-        </a>
-    </div>
-    <div class="col-4 text-center">
-        <a href="/installerDataVersicherung" class="btn btn-primary">
-            Versicherung
-        </a>
-    </div>
-    <div class="col-12 mt-5 text-center">
-        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#done">
-            Instalation abschließen
-        </button>
-    </div>
-</div>
-
-
 
 
     <!-- Modal -->

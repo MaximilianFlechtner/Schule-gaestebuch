@@ -32,7 +32,7 @@ class StaffModel extends Db implements Model
      * @param $departmentID
      * @param $isManager
      */
-    public function __construct($id, $staffNumber, $name, $firstName, $birth,$phone ,$mobile, $mail, $room, $isManager, $departmentID)
+    public function __construct($id, $staffNumber, $name, $firstName, $birth, $phone, $mobile, $mail, $room, $isManager, $departmentID)
     {
         $this->id = $id;
         $this->staffNumber = $staffNumber;
@@ -45,26 +45,6 @@ class StaffModel extends Db implements Model
         $this->room = $room;
         $this->departmentID = $departmentID;
         $this->isManager = ($isManager == 'J' ? true : false);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIsManager()
-    {
-        return $this->isManager == 'J';
-    }
-
-    /**
-     *
-     */
-    public function create()
-    {
-        self::insert(
-            'Mitarbeiter',
-            ['Personalnummer', 'NAME', 'Vorname', 'Geburtsdatum', 'Telefon', 'Mobil', 'Email', 'Raum', 'Ist_Leiter', 'Abteilung_ID'],
-            [$this->staffNumber, $this->name, $this->firstName, $this->birth, $this->phone ,$this->mobile, $this->mail, $this->room, $this->isManager ? 'J' : 'N', $this->departmentID]
-        );
     }
 
     /**
@@ -106,7 +86,7 @@ class StaffModel extends Db implements Model
             $values[10] = $values[10] ? 'J' : 'N';
         }
 
-        return self::updateDb('Mitarbeiter', $model->id, ['Personalnummer', 'NAME', 'Vorname', 'Geburtsdatum', 'Telefon', 'Email' ,'Mobil', 'Raum', 'Abteilung_ID', 'Ist_Leiter'], $values);
+        return self::updateDb('Mitarbeiter', $model->id, ['Personalnummer', 'NAME', 'Vorname', 'Geburtsdatum', 'Telefon', 'Email', 'Mobil', 'Raum', 'Abteilung_ID', 'Ist_Leiter'], $values);
     }
 
     /**
@@ -114,7 +94,27 @@ class StaffModel extends Db implements Model
      */
     public static function delete($id)
     {
-       self::deleteDB('Mitarbeiter', $id);
+        self::deleteDB('Mitarbeiter', $id);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIsManager()
+    {
+        return $this->isManager == 'J';
+    }
+
+    /**
+     *
+     */
+    public function create()
+    {
+        self::insert(
+            'Mitarbeiter',
+            ['Personalnummer', 'NAME', 'Vorname', 'Geburtsdatum', 'Telefon', 'Mobil', 'Email', 'Raum', 'Ist_Leiter', 'Abteilung_ID'],
+            [$this->staffNumber, $this->name, $this->firstName, $this->birth, $this->phone, $this->mobile, $this->mail, $this->room, $this->isManager ? 'J' : 'N', $this->departmentID]
+        );
     }
 
 

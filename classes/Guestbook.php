@@ -30,29 +30,29 @@ class Guestbook extends Db implements Model
     /**
      * @return array
      */
-    static function getAll() {
+    static function getAll()
+    {
         $guestbook = [];
         foreach (self::getAllFromDB('Guestbook') as $raw) {
-            $guestbook[] = new Guestbook($raw[1],$raw[2],$raw[3],$raw[4],$raw[5]);
+            $guestbook[] = new Guestbook($raw[1], $raw[2], $raw[3], $raw[4], $raw[5]);
         }
 
         return $guestbook;
     }
 
-
-
-    public function create() {
-        self::insert('Guestbook', ['name', 'email', 'website', 'text', 'gender'], [$this->name, $this->email, $this->website, $this->text, $this->gender] );
-    }
-
-
-    public static function update($model) {
+    public static function update($model)
+    {
 
     }
 
+    public static function delete($id)
+    {
 
-    public static function delete($id) {
+    }
 
+    public function create()
+    {
+        self::insert('Guestbook', ['name', 'email', 'website', 'text', 'gender'], [$this->name, $this->email, $this->website, $this->text, $this->gender]);
     }
 
 

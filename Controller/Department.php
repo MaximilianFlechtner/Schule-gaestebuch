@@ -8,7 +8,8 @@ class Department extends Controller implements ControllerModel
         return DepartmentModel::getAll();
     }
 
-    public static function getById($id) {
+    public static function getById($id)
+    {
         if ($id) {
             return DepartmentModel::getById($id);
         }

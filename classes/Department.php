@@ -46,7 +46,8 @@ class DepartmentModel extends Db implements Model
         return $departmentList;
     }
 
-    public static function getById($id) {
+    public static function getById($id)
+    {
         $departmentList = [];
 
         $result = self::query("SELECT * FROM Abteilung WHERE id = " . $id);

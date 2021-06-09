@@ -1,6 +1,7 @@
 <?php
 
-class Validator {
+class Validator
+{
 
     protected $messages = array();
     protected $errors = array();
@@ -18,7 +19,8 @@ class Validator {
      *
      * @param array $data
      */
-    function __construct(array $data = null) {
+    function __construct(array $data = null)
+    {
         if (!empty($data)) $this->setData($data);
     }
 
@@ -29,7 +31,8 @@ class Validator {
      * @param mixed $data
      * @return FormValidator
      */
-    public function setData(array $data) {
+    public function setData(array $data)
+    {
         $this->data = $data;
         return $this;
     }
@@ -41,15 +44,16 @@ class Validator {
      * @param string $message
      * @return FormValidator
      */
-    public function email($message = null) {
-        $this->setRule(__FUNCTION__, function($email) {
+    public function email($message = null)
+    {
+        $this->setRule(__FUNCTION__, function ($email) {
             if (strlen($email) == 0) return true;
             $isValid = true;
             $atIndex = strrpos($email, '@');
             if (is_bool($atIndex) && !$atIndex) {
                 $isValid = false;
             } else {
-                $domain = substr($email, $atIndex+1);
+                $domain = substr($email, $atIndex + 1);
                 $local = substr($email, 0, $atIndex);
                 $localLen = strlen($local);
                 $domainLen = strlen($domain);
@@ -58,7 +62,7 @@ class Validator {
                 } else if ($domainLen < 1 || $domainLen > 255) {
                     // domain part length exceeded
                     $isValid = false;
-                } else if ($local[0] == '.' || $local[$localLen-1] == '.') {
+                } else if ($local[0] == '.' || $local[$localLen - 1] == '.') {
                     // local part starts or ends with '.'
                     $isValid = false;
                 } else if (preg_match('/\\.\\./', $local)) {
@@ -70,15 +74,15 @@ class Validator {
                 } else if (preg_match('/\\.\\./', $domain)) {
                     // domain part has two consecutive dots
                     $isValid = false;
-                } else if (!preg_match('/^(\\\\.|[A-Za-z0-9!#%&`_=\\/$\'*+?^{}|~.-])+$/', str_replace("\\\\","",$local))) {
+                } else if (!preg_match('/^(\\\\.|[A-Za-z0-9!#%&`_=\\/$\'*+?^{}|~.-])+$/', str_replace("\\\\", "", $local))) {
                     // character not valid in local part unless
                     // local part is quoted
-                    if (!preg_match('/^"(\\\\"|[^"])+"$/', str_replace("\\\\","",$local))) {
+                    if (!preg_match('/^"(\\\\"|[^"])+"$/', str_replace("\\\\", "", $local))) {
                         $isValid = false;
                     }
                 }
                 // check DNS
-                if ($isValid && !(checkdnsrr($domain,"MX") || checkdnsrr($domain,"A"))) {
+                if ($isValid && !(checkdnsrr($domain, "MX") || checkdnsrr($domain, "A"))) {
                     $isValid = false;
                 }
             }
@@ -88,13 +92,38 @@ class Validator {
     }
 
     /**
+     * Set rule.
+     *
+     * @param string $rule
+     * @param closure $function
+     * @param string $message
+     * @param array $args
+     */
+    public function setRule($rule, $function, $message = '', $args = array())
+    {
+        if (!array_key_exists($rule, $this->rules)) {
+            $this->rules[$rule] = TRUE;
+            if (!array_key_exists($rule, $this->functions)) {
+                if (!is_callable($function)) {
+                    die('Invalid function for rule: ' . $rule);
+                }
+                $this->functions[$rule] = $function;
+            }
+            $this->arguments[$rule] = $args; // Specific arguments for rule
+
+            $this->messages[$rule] = (empty($message)) ? '' : $message;
+        }
+    }
+
+    /**
      * Field must be filled in.
      *
      * @param string $message
      * @return FormValidator
      */
-    public function required($message = null) {
-        $this->setRule(__FUNCTION__, function($val) {
+    public function required($message = null)
+    {
+        $this->setRule(__FUNCTION__, function ($val) {
             if (is_scalar($val)) {
                 $val = trim($val);
             }
@@ -103,38 +132,30 @@ class Validator {
         return $this;
     }
 
-
     /**
      * Field has to be valid internet address.
      *
      * @param string $message
      * @return FormValidator
      */
-    public function url($message = null) {
-        $this->setRule(__FUNCTION__, function($val) {
+    public function url($message = null)
+    {
+        $this->setRule(__FUNCTION__, function ($val) {
             return (strlen(trim($val)) === 0 || filter_var($val, FILTER_VALIDATE_URL) !== FALSE);
         }, $message);
         return $this;
     }
 
     /**
-     * Date format.
-     *
-     * @return string
-     */
-    protected function _getDefaultDateFormat() {
-        return 'd/m/Y';
-    }
-
-    /**
      * callback
-     * @param   string  $name
-     * @param   mixed   $function
-     * @param   string  $message
-     * @param   mixed   $params
+     * @param string $name
+     * @param mixed $function
+     * @param string $message
+     * @param mixed $params
      * @return  FormValidator
      */
-    public function callback($callback, $message = '', $params = array()) {
+    public function callback($callback, $message = '', $params = array())
+    {
         if (is_callable($callback)) {
 
             // If an array is callable, it is a method
@@ -147,7 +168,7 @@ class Validator {
             if (!empty($func)) {
                 // needs a unique name to avoild collisions in the rules array
                 $name = 'callback_' . sha1(uniqid());
-                $this->setRule($name, function($value) use ($func, $params, $callback) {
+                $this->setRule($name, function ($value) use ($func, $params, $callback) {
                     // Creates merged arguments array with validation target as first argument
                     $args = array_merge(array($value), (is_array($params) ? $params : array($params)));
                     if (is_array($callback)) {
@@ -167,48 +188,20 @@ class Validator {
     }
 
     // ------------------ PRE VALIDATION FILTERING -------------------
+
     /**
      * add a filter callback for the data
      *
      * @param mixed $callback
      * @return FormValidator
      */
-    public function filter($callback) {
-        if(is_callable($callback)) {
+    public function filter($callback)
+    {
+        if (is_callable($callback)) {
             $this->filters[] = $callback;
         }
 
         return $this;
-    }
-
-    /**
-     * applies filters based on a data key
-     *
-     * @access protected
-     * @param string $key
-     * @return void
-     */
-    protected function _applyFilters($key) {
-        $this->_applyFilter($this->data[$key]);
-    }
-
-    /**
-     * recursively apply filters to a value
-     *
-     * @access protected
-     * @param mixed $val reference
-     * @return void
-     */
-    protected function _applyFilter(&$val) {
-        if (is_array($val)) {
-            foreach($val as $key => &$item) {
-                $this->_applyFilter($item);
-            }
-        } else {
-            foreach($this->filters as $filter) {
-                $val = $filter($val);
-            }
-        }
     }
 
     /**
@@ -217,7 +210,8 @@ class Validator {
      * @param string $label
      * @return bool
      */
-    public function validate($key, $recursive = false, $label = '', $htmlSpecial = true) {
+    public function validate($key, $recursive = false, $label = '', $htmlSpecial = true)
+    {
         // set up field name for error message
         $this->fields[$key] = (empty($label)) ? 'Field with the name of "' . $key . '"' : $label;
 
@@ -236,6 +230,86 @@ class Validator {
     }
 
     /**
+     * applies filters based on a data key
+     *
+     * @access protected
+     * @param string $key
+     * @return void
+     */
+    protected function _applyFilters($key)
+    {
+        $this->_applyFilter($this->data[$key]);
+    }
+
+    /**
+     * recursively apply filters to a value
+     *
+     * @access protected
+     * @param mixed $val reference
+     * @return void
+     */
+    protected function _applyFilter(&$val)
+    {
+        if (is_array($val)) {
+            foreach ($val as $key => &$item) {
+                $this->_applyFilter($item);
+            }
+        } else {
+            foreach ($this->filters as $filter) {
+                $val = $filter($val);
+            }
+        }
+    }
+
+    /**
+     * _getVal with added support for retrieving values from numeric and
+     * associative multi-dimensional arrays. When doing so, use DOT notation
+     * to indicate a break in keys, i.e.:
+     *
+     * key = "one.two.three"
+     *
+     * would search the array:
+     *
+     * array('one' => array(
+     *      'two' => array(
+     *          'three' => 'RETURN THIS'
+     *      )
+     * );
+     *
+     * @param string $key
+     * @return mixed
+     */
+    protected function _getVal($key)
+    {
+        // handle multi-dimensional arrays
+        if (strpos($key, '.') !== FALSE) {
+            $arrData = NULL;
+            $keys = explode('.', $key);
+            $keyLen = count($keys);
+            for ($i = 0; $i < $keyLen; ++$i) {
+                if (trim($keys[$i]) == '') {
+                    return false;
+                } else {
+                    if (is_null($arrData)) {
+                        if (!isset($this->data[$keys[$i]])) {
+                            return false;
+                        }
+                        $arrData = $this->data[$keys[$i]];
+                    } else {
+                        if (!isset($arrData[$keys[$i]])) {
+                            return false;
+                        }
+                        $arrData = $arrData[$keys[$i]];
+                    }
+                }
+            }
+            return $arrData;
+        } else {
+            return (isset($this->data[$key])) ? $this->data[$key] : FALSE;
+        }
+    }
+
+    /**
      * recursively validates a value
      *
      * @access protected
@@ -247,7 +321,7 @@ class Validator {
     {
         if ($recursive && is_array($val)) {
             // run validations on each element of the array
-            foreach($val as $index => $item) {
+            foreach ($val as $index => $item) {
                 if (!$this->_validate($key, $item, $recursive)) {
                     // halt validation for this value.
                     return FALSE;
@@ -286,11 +360,28 @@ class Validator {
     }
 
     /**
+     * Register error.
+     *
+     * @param string $rule
+     * @param string $key
+     * @param string $message
+     */
+    protected function registerError($rule, $key, $message = null)
+    {
+        if (empty($message)) {
+            $message = $this->messages[$rule];
+        }
+
+        $this->errors[$key] = sprintf($message, $this->fields[$key]);
+    }
+
+    /**
      * Whether errors have been found.
      *
      * @return bool
      */
-    public function hasErrors() {
+    public function hasErrors()
+    {
         return (count($this->errors) > 0);
     }
 
@@ -300,7 +391,8 @@ class Validator {
      * @param string $field
      * @return string
      */
-    public function getError($field) {
+    public function getError($field)
+    {
         return $this->errors[$field];
     }
 
@@ -309,7 +401,8 @@ class Validator {
      *
      * @return array
      */
-    public function getAllErrors($keys = true) {
+    public function getAllErrors($keys = true)
+    {
         return ($keys == true) ? $this->errors : array_values($this->errors);
     }
 
@@ -319,89 +412,13 @@ class Validator {
     }
 
     /**
-     * _getVal with added support for retrieving values from numeric and
-     * associative multi-dimensional arrays. When doing so, use DOT notation
-     * to indicate a break in keys, i.e.:
+     * Date format.
      *
-     * key = "one.two.three"
-     *
-     * would search the array:
-     *
-     * array('one' => array(
-     *      'two' => array(
-     *          'three' => 'RETURN THIS'
-     *      )
-     * );
-     *
-     * @param string $key
-     * @return mixed
+     * @return string
      */
-    protected function _getVal($key) {
-        // handle multi-dimensional arrays
-        if (strpos($key, '.') !== FALSE) {
-            $arrData = NULL;
-            $keys = explode('.', $key);
-            $keyLen = count($keys);
-            for ($i = 0; $i < $keyLen; ++$i) {
-                if (trim($keys[$i]) == '') {
-                    return false;
-                } else {
-                    if (is_null($arrData)) {
-                        if (!isset($this->data[$keys[$i]])) {
-                            return false;
-                        }
-                        $arrData = $this->data[$keys[$i]];
-                    } else {
-                        if (!isset($arrData[$keys[$i]])) {
-                            return false;
-                        }
-                        $arrData = $arrData[$keys[$i]];
-                    }
-                }
-            }
-            return $arrData;
-        } else {
-            return (isset($this->data[$key])) ? $this->data[$key] : FALSE;
-        }
-    }
-
-    /**
-     * Register error.
-     *
-     * @param string $rule
-     * @param string $key
-     * @param string $message
-     */
-    protected function registerError($rule, $key, $message = null) {
-        if (empty($message)) {
-            $message = $this->messages[$rule];
-        }
-
-        $this->errors[$key] = sprintf($message, $this->fields[$key]);
-    }
-
-
-    /**
-     * Set rule.
-     *
-     * @param string $rule
-     * @param closure $function
-     * @param string $message
-     * @param array $args
-     */
-    public function setRule($rule, $function, $message = '', $args = array()) {
-        if (!array_key_exists($rule, $this->rules)) {
-            $this->rules[$rule] = TRUE;
-            if (!array_key_exists($rule, $this->functions)) {
-                if (!is_callable($function)) {
-                    die('Invalid function for rule: ' . $rule);
-                }
-                $this->functions[$rule] = $function;
-            }
-            $this->arguments[$rule] = $args; // Specific arguments for rule
-
-            $this->messages[$rule] = (empty($message)) ? '' : $message;
-        }
+    protected function _getDefaultDateFormat()
+    {
+        return 'd/m/Y';
     }
 
 }

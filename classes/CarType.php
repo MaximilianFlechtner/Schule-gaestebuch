@@ -20,12 +20,13 @@ class CarTypeModel extends Db implements Model
         $this->manufacturerID = $manufacturerID;
     }
 
-    public static function getById($id){
+    public static function getById($id)
+    {
         $carTypes = [];
 
-        $result = self::query("SELECT * FROM Fahrzeugtyp WHERE id = ". $id);
+        $result = self::query("SELECT * FROM Fahrzeugtyp WHERE id = " . $id);
         if (!empty($result)) {
-            foreach($result as $carType) {
+            foreach ($result as $carType) {
                 $carTypes[] = new CarTypeModel(
                     $carType[0],
                     $carType[1],

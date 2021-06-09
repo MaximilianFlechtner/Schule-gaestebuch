@@ -42,14 +42,6 @@ class InsuranceModel extends Db implements Model
     }
 
     /**
-     *
-     */
-    public function create()
-    {
-
-    }
-
-    /**
      * @return array|false
      */
     static public function getAll()
@@ -88,6 +80,14 @@ class InsuranceModel extends Db implements Model
      *
      */
     public static function delete($id)
+    {
+
+    }
+
+    /**
+     *
+     */
+    public function create()
     {
 
     }

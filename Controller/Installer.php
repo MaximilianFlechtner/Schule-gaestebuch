@@ -93,7 +93,7 @@ class Installer extends Controller
 
         if (!$error) {
             header("Location: /installer");
-        }else {
+        } else {
             require_once($file);
         }
     }
@@ -131,7 +131,7 @@ class Installer extends Controller
     {
         $pdo = new PDO("mysql:host=" . DBHOST . ";dbname=" . DBNAME . ";charset=utf8", DBUSER, DBPASS);
 
-        switch ($database){
+        switch ($database) {
             case 1:
                 $query = file_get_contents(__DIR__ . '/../sql/installer_test.sql');
                 break;

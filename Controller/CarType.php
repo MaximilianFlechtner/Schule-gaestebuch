@@ -6,7 +6,7 @@ class CarType extends Controller implements ControllerModel
 
     public static function getById($id)
     {
-        if($id) {
+        if ($id) {
             return CarTypeModel::getById($id);
         }
 

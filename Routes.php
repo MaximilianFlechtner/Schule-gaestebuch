@@ -2,24 +2,24 @@
 
 //Installer
 if (!defined('INSTALL')) {
-    Route::set('installer', function() {
+    Route::set('installer', function () {
         Installer::CreateView("Installer");
     });
 
-    Route::set('installerCheck', function() {
+    Route::set('installerCheck', function () {
         Installer::createModel('Installer');
     });
 
-    Route::set('installerData', function() {
+    Route::set('installerData', function () {
         Installer::createTables('Installer');
     });
-    Route::set('installerDataTest', function() {
+    Route::set('installerDataTest', function () {
         Installer::createTables('Installer', 1);
     });
-    Route::set('installerDataVersicherung', function() {
+    Route::set('installerDataVersicherung', function () {
         Installer::createTables('Installer', 2);
     });
-    Route::set('installerDone', function() {
+    Route::set('installerDone', function () {
         Installer::done();
     });
 }
@@ -34,10 +34,9 @@ Route::set('indexCreate', function () {
 });
 
 //Captcha
-Route::set('captcha', function() {
+Route::set('captcha', function () {
     include_once('includes/phpcaptcha/index.php');
 });
-
 
 
 //Versicherungsnehmer
@@ -65,8 +64,8 @@ Route::set('staffUpdate', function () {
 
 
 //Dienstwagen
-Route::set('companycar', function() {
-   CompanyCar::CreateView("companyCar");
+Route::set('companycar', function () {
+    CompanyCar::CreateView("companyCar");
 });
 
 Route::def();
