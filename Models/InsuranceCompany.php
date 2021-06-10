@@ -91,6 +91,10 @@ class InsuranceCompanyModel extends Db implements Model
      */
     public function create()
     {
-        // TODO: Implement create() method.
+        self::insert(
+            'Versicherungsgesellschaft',
+            ['Bezeichnung', 'Ort'],
+            [$this->name, $this->location]
+        );
     }
 }

@@ -29,8 +29,8 @@ class Controller extends Db
     public static function createModel($view_name)
     {
         include_once('templates/nav.php');
-        if (file_exists("./View/$view_name.php")) {
-            static::create("./View/$view_name.php", $_POST);
+        if (file_exists("./View/Create/$view_name.php")) {
+            static::create("./View/Create/$view_name.php", $_POST);
         }
         include_once('templates/footer.php');
     }

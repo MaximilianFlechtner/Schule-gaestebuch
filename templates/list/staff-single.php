@@ -7,7 +7,7 @@
                     <div class="col-6">
                         <?= $staff->name ?> <?= $staff->firstName ?>
                     </div>
-                    <div class="col-6">
+                    <div class="col-6 text-end">
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#deleteModal<?= $staff->id ?>"><i class="fas fa-trash"></i></button>
                         <button class="btn btn-success" data-bs-toggle="modal"

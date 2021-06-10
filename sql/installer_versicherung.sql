@@ -11,6 +11,16 @@ CREATE TABLE Versicherungsvertrag
  CONSTRAINT Versicherungsvertrag_PK  PRIMARY KEY (ID)
 );
 
+DROP TABLE IF EXISTS `Guestbook`;
+CREATE TABLE `Guestbook` (
+ `id` int(11) NOT NULL,
+`name` text NOT NULL,
+ `email` text NOT NULL,
+ `website` text NOT NULL,
+ `text` text NOT NULL,
+ `gender` text NOT NULL
+)
+
 DROP TABLE IF EXISTS `Zuordnung_SF_FZ`;
 CREATE TABLE Zuordnung_SF_FZ
 (ID              INTEGER       NOT NULL ,
@@ -34,7 +44,7 @@ CREATE TABLE Schadensfall
 
 DROP TABLE IF EXISTS `Versicherungsgesellschaft`;
 CREATE TABLE Versicherungsgesellschaft
-(ID              INTEGER       NOT NULL ,
+(ID              INTEGER       NOT NULL AUTO_INCREMENT,
  Bezeichnung     VARCHAR(30)   NOT NULL,
  Ort             VARCHAR(30),
  CONSTRAINT Versicherungsgesellschaft_PK  PRIMARY KEY (ID)

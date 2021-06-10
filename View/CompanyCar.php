@@ -5,7 +5,7 @@
 </div>
 <div class="row mt-2">
     <?php
-    if (isset($carList)) {
+    if (isset($carList) && !empty($carList)) {
         foreach ($carList as $car) {
             include('templates/list/car-single.php');
         }

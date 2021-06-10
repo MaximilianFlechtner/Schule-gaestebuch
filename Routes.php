@@ -7,7 +7,7 @@ if (!defined('INSTALL')) {
     });
 
     Route::set('installerCheck', function () {
-        Installer::createModel('Installer');
+        Installer::createModel('../Installer');
     });
 
     Route::set('installerData', function () {
@@ -25,7 +25,7 @@ if (!defined('INSTALL')) {
 }
 
 //Gästebuch
-Route::set('index.php', function () {
+Route::set('index', function () {
     Index::CreateView("Index");
 });
 
@@ -47,6 +47,9 @@ Route::set('insurance', function () {
 //Versicherungsgeselschaft
 Route::set('insuranceCompany', function () {
    InsuranceCompany::CreateView("InsuranceCompany");
+});
+Route::set('insuranceCompanyCreate', function () {
+    InsuranceCompany::createModel("InsuranceCompanyCreate");
 });
 
 //Versicherungsvertrag
@@ -78,12 +81,20 @@ Route::set('companycar', function () {
     CompanyCar::CreateView("CompanyCar");
 });
 
+//Schadensfall
+Route::set('damageCase', function () {
+    DamageCase::CreateView("DamageCase");
+});
+
+
 //Fahrzeug
 Route::set('car', function () {
    Car::CreateView('Car');
 });
 
-Route::def();
+Route::def(function () {
+    Index::CreateView("Index");
+});
 
 
 ?>

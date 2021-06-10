@@ -35,7 +35,16 @@ class InsuranceCompany extends Controller implements ControllerModel
      */
     public static function create($file, array $post)
     {
-        // TODO: Implement create() method.
+        if (isset($post) && !empty($post)) {
+            $insuranceCompany = new InsuranceCompanyModel(
+                '',
+                $post['tech-name'],
+                $post['tech-location']
+            );
+            $insuranceCompany->create();
+        }
+
+        require_once($file);
     }
 
     /**

@@ -3,14 +3,8 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12">
                         <?= $car->indicator ?>
-                    </div>
-                    <div class="col-6">
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#deleteModal<?= $car->id ?>"><i class="fas fa-trash"></i></button>
-                        <button class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="#editModal<?= $car->id ?>"><i class="fas fa-edit"></i></button>
                     </div>
                 </div>
             </div>
@@ -27,14 +21,8 @@
         <div class="card">
             <div class="card-header">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12">
                         <?= $car->Kennzeichen ?>
-                    </div>
-                    <div class="col-6">
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#deleteModal<?= $car->id ?>"><i class="fas fa-trash"></i></button>
-                        <button class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="#editModal<?= $car->id ?>"><i class="fas fa-edit"></i></button>
                     </div>
                 </div>
             </div>
