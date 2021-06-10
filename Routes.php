@@ -46,7 +46,7 @@ Route::set('insurance', function () {
 
 //Versicherungsgeselschaft
 Route::set('insuranceCompany', function () {
-   InsuranceCompany::CreateView("InsuranceCompany");
+    InsuranceCompany::CreateView("InsuranceCompany");
 });
 Route::set('insuranceCompanyCreate', function () {
     InsuranceCompany::createModel("InsuranceCompanyCreate");
@@ -89,7 +89,7 @@ Route::set('damageCase', function () {
 
 //Fahrzeug
 Route::set('car', function () {
-   Car::CreateView('Car');
+    Car::CreateView('Car');
 });
 
 Route::def(function () {

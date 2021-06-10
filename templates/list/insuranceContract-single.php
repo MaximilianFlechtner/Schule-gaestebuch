@@ -8,8 +8,9 @@
             <div class="card-body">
                 <p>Abschlussdatum: <?= $insurance->Abschlussdatum ?></p>
                 <p>Art: <?= $insurance->Art ?></p>
-                <?php if ($insurance->Mitarbeiter_ID && !empty(Staff::getById($insurance->Mitarbeiter_ID))) :?>
-                    <p>Mitarbeiter: <?= Staff::getById($insurance->Mitarbeiter_ID)->firstName . ' ' . Staff::getById($insurance->Mitarbeiter_ID)->name ?></p>
+                <?php if ($insurance->Mitarbeiter_ID && !empty(Staff::getById($insurance->Mitarbeiter_ID))) : ?>
+                    <p>
+                        Mitarbeiter: <?= Staff::getById($insurance->Mitarbeiter_ID)->firstName . ' ' . Staff::getById($insurance->Mitarbeiter_ID)->name ?></p>
                 <?php endif; ?>
                 <p></p>
             </div>

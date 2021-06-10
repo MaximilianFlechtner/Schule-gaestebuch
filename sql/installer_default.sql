@@ -1,11 +1,12 @@
 DROP TABLE IF EXISTS `Guestbook`;
-CREATE TABLE `Guestbook` (
-                             `id` int(11) NOT NULL,
-                             `name` text NOT NULL,
-                             `email` text NOT NULL,
-                             `website` text NOT NULL,
-                             `text` text NOT NULL,
-                             `gender` text NOT NULL
+CREATE TABLE `Guestbook`
+(
+    `id`      int(11) NOT NULL,
+    `name`    text NOT NULL,
+    `email`   text NOT NULL,
+    `website` text NOT NULL,
+    `text`    text NOT NULL,
+    `gender`  text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -22,4 +23,4 @@ ALTER TABLE `Guestbook`
 -- AUTO_INCREMENT for table `Guestbook`
 --
 ALTER TABLE `Guestbook`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+    MODIFY `id` int (11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;

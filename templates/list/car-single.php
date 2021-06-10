@@ -29,7 +29,8 @@
             <div class="card-body">
                 <p>Farbe: <?= $car->Farbe ?></p>
                 <p>Typ: <?= CarType::getById($car->Fahrzeugtyp_ID)->name ?></p>
-                <p>Hersteller: <?= CarManufacturer::getById(CarType::getById($car->Fahrzeugtyp_ID)->manufacturerID)->name ?></p>
+                <p>
+                    Hersteller: <?= CarManufacturer::getById(CarType::getById($car->Fahrzeugtyp_ID)->manufacturerID)->name ?></p>
             </div>
         </div>
     </div>

@@ -1,1 +1,1 @@
-<?php define('INSTALL','true'); ?>
+<?php define('INSTALL', 'true'); ?>
