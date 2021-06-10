@@ -75,6 +75,36 @@ class StaffModel extends Db implements Model
         return $staffList;
     }
 
+    public static function getById($id)
+    {
+        $StaffList = [];
+
+        $result = self::query("SELECT * FROM Mitarbeiter WHERE id = " . $id);
+        if (!empty($result)) {
+            foreach ($result as $staff) {
+                $StaffList[] = new StaffModel(
+                    $staff[0],
+                    $staff[1],
+                    $staff[2],
+                    $staff[3],
+                    $staff[4],
+                    $staff[5],
+                    $staff[6],
+                    $staff[7],
+                    $staff[8],
+                    $staff[9],
+                    $staff[10]
+                );
+            }
+        }
+
+        if (!empty($StaffList)) {
+            return $StaffList[0];
+        }
+
+        return false;
+    }
+
     /**
      *
      * @param StaffModel $model

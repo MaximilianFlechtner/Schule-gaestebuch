@@ -31,6 +31,13 @@ class Staff extends Controller implements ControllerModel
         require_once($file);
     }
 
+    public static function getById($id)
+    {
+        if ($id) {
+            return StaffModel::getById($id);
+        }
+    }
+
     public static function delete($file, array $post)
     {
 

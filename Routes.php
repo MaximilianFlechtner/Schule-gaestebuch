@@ -44,6 +44,16 @@ Route::set('insurance', function () {
     Insurance::CreateView("Insurance");
 });
 
+//Versicherungsgeselschaft
+Route::set('insuranceCompany', function () {
+   InsuranceCompany::CreateView("InsuranceCompany");
+});
+
+//Versicherungsvertrag
+Route::set('insuranceContract', function () {
+    InsuranceContract::CreateView("InsuranceContract");
+});
+
 
 //Mitarbeiter
 Route::set('staff', function () {
@@ -65,7 +75,12 @@ Route::set('staffUpdate', function () {
 
 //Dienstwagen
 Route::set('companycar', function () {
-    CompanyCar::CreateView("companyCar");
+    CompanyCar::CreateView("CompanyCar");
+});
+
+//Fahrzeug
+Route::set('car', function () {
+   Car::CreateView('Car');
 });
 
 Route::def();

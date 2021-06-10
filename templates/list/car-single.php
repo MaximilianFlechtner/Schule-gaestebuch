@@ -22,3 +22,28 @@
         </div>
     </div>
 <?php endif; ?>
+<?php if (isset($car) && $car instanceof CarModel): ?>
+    <div class="col-lg-4 col-12 col-md-6 mt-4">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-6">
+                        <?= $car->Kennzeichen ?>
+                    </div>
+                    <div class="col-6">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal<?= $car->id ?>"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#editModal<?= $car->id ?>"><i class="fas fa-edit"></i></button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <p>Farbe: <?= $car->Farbe ?></p>
+                <p>Typ: <?= CarType::getById($car->Fahrzeugtyp_ID)->name ?></p>
+                <p>Hersteller: <?= CarManufacturer::getById(CarType::getById($car->Fahrzeugtyp_ID)->manufacturerID)->name ?></p>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+

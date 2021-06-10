@@ -24,13 +24,22 @@
                     <a class="nav-link" href="/index.php">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/insurance">Versicherung</a>
+                    <a class="nav-link" href="/insurance">Versicherungsnehmer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/insuranceCompany">Versicherungsgeselschaft</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/insuranceContract">Versicherungsvertrag</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/staff">Mitarbeiter</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/companycar">Dienstwagen</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/car">Fahrzeuge</a>
                 </li>
             </ul>
         </div>

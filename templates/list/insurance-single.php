@@ -11,6 +11,9 @@
                 <p>Ort: <?= $insurance->location ?></p>
                 <p>PLZ: <?= $insurance->plz ?></p>
                 <p>Straße: <?= $insurance->street ?> <?= $insurance->streetNumber ?></p>
+                <?php if ($insurance->insuranceCompanyID && !empty(InsuranceCompany::getById($insurance->insuranceCompanyID))): ?>
+                    <p>Versicherungsgeselschaft: <?= InsuranceCompany::getById($insurance->insuranceCompanyID)->name ?></p>
+                <?php endif; ?>
             </div>
         </div>
     </div>

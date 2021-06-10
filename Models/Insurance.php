@@ -13,6 +13,7 @@ class InsuranceModel extends Db implements Model
     public $street;
     public $streetNumber;
     public $ownCustomer;
+    public $insuranceCompanyID;
 
     /**
      * Insurance constructor.
@@ -27,7 +28,7 @@ class InsuranceModel extends Db implements Model
      * @param $streetNumber
      * @param $ownCustomer
      */
-    public function __construct($id, $name, $firstName, $birth, $license, $location, $plz, $street, $streetNumber, $ownCustomer)
+    public function __construct($id, $name, $firstName, $birth, $license, $location, $plz, $street, $streetNumber, $ownCustomer, $insuranceCompanyID)
     {
         $this->id = $id;
         $this->name = $name;
@@ -39,6 +40,7 @@ class InsuranceModel extends Db implements Model
         $this->street = $street;
         $this->streetNumber = $streetNumber;
         $this->ownCustomer = $ownCustomer;
+        $this->insuranceCompanyID = $insuranceCompanyID;
     }
 
     /**
@@ -59,7 +61,8 @@ class InsuranceModel extends Db implements Model
                 $raw[6],
                 $raw[7],
                 $raw[8],
-                $raw[9]
+                $raw[9],
+                $raw[10]
             );
         }
 
