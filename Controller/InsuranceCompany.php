@@ -53,7 +53,12 @@ class InsuranceCompany extends Controller implements ControllerModel
      */
     public static function delete($file, array $post)
     {
-        // TODO: Implement delete() method.
+        if (!empty($post) && $post['tech-model-id']) {
+            InsuranceCompanyModel::delete($post['tech-model-id']);
+        }
+
+        $insurances = InsuranceCompanyModel::getAll();
+        require_once($file);
     }
 
     /**

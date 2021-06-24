@@ -3,7 +3,15 @@
     <div class="col-lg-4 col-12 col-md-6 mt-4">
         <div class="card">
             <div class="card-header">
-                <?= $insurance->Vertragsnummer ?>
+                <div class="row">
+                    <div class="col-6"><?= $insurance->Vertragsnummer ?></div>
+                    <div class="col-6 text-end">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#deleteModal<?= $insurance->id ?>"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#editModal<?= $insurance->id ?>"><i class="fas fa-edit"></i></button>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <p>Abschlussdatum: <?= $insurance->Abschlussdatum ?></p>
@@ -16,5 +24,12 @@
             </div>
         </div>
     </div>
+
+    <?php
+    $id = $insurance->id;
+    $name = $insurance->Vertragsnummer;
+    $post = 'insuranceContractDelete';
+    include(__DIR__ . '/../modal/delete.php');
+    ?>
 
 <?php endif; ?>

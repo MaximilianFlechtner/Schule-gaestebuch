@@ -31,30 +31,13 @@
     </div>
 
 
-    <!-- Modal Delete -->
-    <div class="modal fade" id="deleteModal<?= $staff->id ?>" tabindex="-1"
-         aria-labelledby="deleteModalLabel-<?= $staff->id ?>" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"
-                        id="deleteModalLabel-<?= $staff->id ?>">  <?= $staff->name ?> <?= $staff->firstName ?> Löschen
-                        ?</h5>
-                    <button type="button" class="btn-close btn" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="alert alert-danger">Achtung damit wird der Mitarbeiter komplett gelöscht</div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-                    <form action="/staffDelete" method="post">
-                        <input name="tech-staff-id" type="hidden" value="<?= $staff->id ?>">
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php
+    $id = $staff->id;
+    $name = $staff->firstName . ' ' . $staff->name;
+    $post = 'staffDelete';
+    include(__DIR__ . '/../modal/delete.php');
+    ?>
+
 
     <!-- Modal Edit -->
     <div class="modal fade" id="editModal<?= $staff->id ?>" tabindex="-1"

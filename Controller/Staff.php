@@ -9,6 +9,11 @@ class Staff extends Controller implements ControllerModel
         require_once($file);
     }
 
+    public static function getAll()
+    {
+        return StaffModel::getAll();
+    }
+
     public static function create($file, array $post)
     {
         if (isset($post) && !empty($post)) {
@@ -41,8 +46,8 @@ class Staff extends Controller implements ControllerModel
     public static function delete($file, array $post)
     {
 
-        if (!empty($post) && $post['tech-staff-id']) {
-            StaffModel::delete($post['tech-staff-id']);
+        if (!empty($post) && $post['tech-model-id']) {
+            StaffModel::delete($post['tech-model-id']);
         }
 
         $staffList = StaffModel::getAll();

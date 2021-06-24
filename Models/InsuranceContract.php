@@ -69,7 +69,7 @@ class InsuranceContractModel extends Db implements Model
      */
     public static function delete($id)
     {
-        // TODO: Implement delete() method.
+        self::deleteDB('Versicherungsvertrag', $id);
     }
 
     /**
@@ -77,6 +77,10 @@ class InsuranceContractModel extends Db implements Model
      */
     public function create()
     {
-        // TODO: Implement create() method.
+        self::insert(
+            'Versicherungsvertrag',
+            ['Vertragsnummer', 'Abschlussdatum', 'Art', 'Mitarbeiter_ID', 'Fahrzeug_ID', 'Versicherungsnehmer_ID'],
+            [$this->Vertragsnummer, $this->Abschlussdatum, $this->Art, $this->Mitarbeiter_ID, $this->Fahrzeug_ID, $this->Versicherungsnehmer_ID]
+        );
     }
 }

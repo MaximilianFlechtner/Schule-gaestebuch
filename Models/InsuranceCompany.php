@@ -83,7 +83,7 @@ class InsuranceCompanyModel extends Db implements Model
      */
     public static function delete($id)
     {
-        // TODO: Implement delete() method.
+        self::deleteDB('Versicherungsgesellschaft', $id);
     }
 
     /**

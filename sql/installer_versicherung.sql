@@ -2,7 +2,7 @@
 DROP TABLE IF EXISTS `Versicherungsvertrag`;
 CREATE TABLE Versicherungsvertrag
 (
-    ID                     INTEGER     NOT NULL,
+    ID                     INTEGER     NOT NULL AUTO_INCREMENT,
     Vertragsnummer         VARCHAR(20) NOT NULL,
     Abschlussdatum         DATE        NOT NULL,
     Art                    CHAR(2)     NOT NULL,
@@ -11,17 +11,6 @@ CREATE TABLE Versicherungsvertrag
     Versicherungsnehmer_ID INTEGER     NOT NULL,
     CONSTRAINT Versicherungsvertrag_PK PRIMARY KEY (ID)
 );
-
-DROP TABLE IF EXISTS `Guestbook`;
-CREATE TABLE `Guestbook`
-(
-    `id`      int(11) NOT NULL,
-    `name`    text NOT NULL,
-    `email`   text NOT NULL,
-    `website` text NOT NULL,
-    `text`    text NOT NULL,
-    `gender`  text NOT NULL
-)
 
 DROP TABLE IF EXISTS `Zuordnung_SF_FZ`;
 CREATE TABLE Zuordnung_SF_FZ

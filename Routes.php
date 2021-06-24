@@ -52,9 +52,19 @@ Route::set('insuranceCompanyCreate', function () {
     InsuranceCompany::createModel("InsuranceCompanyCreate");
 });
 
+Route::set('insuranceCompanyDelete', function () {
+    InsuranceCompany::deleteModel("InsuranceCompany");
+});
+
 //Versicherungsvertrag
 Route::set('insuranceContract', function () {
     InsuranceContract::CreateView("InsuranceContract");
+});
+Route::set('insuranceContractCreate', function () {
+    InsuranceContract::createModel("InsuranceContractCreate");
+});
+Route::set('insuranceContractDelete', function () {
+    InsuranceContract::deleteModel("InsuranceContract");
 });
 
 

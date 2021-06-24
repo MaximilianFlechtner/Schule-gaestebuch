@@ -9,6 +9,11 @@ class Insurance extends Controller implements ControllerModel
         require_once($file);
     }
 
+    public static function getAll()
+    {
+        return InsuranceModel::getAll();
+    }
+
     public static function create($file, array $post)
     {
         require_once($file);
